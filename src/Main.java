@@ -14,6 +14,7 @@ public class Main {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-
+        Produtor produtor;
+        produtor = new Produtor();
     }
 }

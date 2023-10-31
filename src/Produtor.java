@@ -3,4 +3,33 @@ public class Produtor{
     private int CNPJ;
     private int situacao;
 
+    public Produtor(String nome, int CNPJ, int situacao) {
+        this.nome = nome;
+        this.CNPJ = CNPJ;
+        this.situacao = situacao;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public int getCNPJ() {
+        return CNPJ;
+    }
+
+    public void setCNPJ(int CNPJ) {
+        this.CNPJ = CNPJ;
+    }
+
+    public int getSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(int situacao) {
+        this.situacao = situacao;
+    }
 }
