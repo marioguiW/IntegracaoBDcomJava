@@ -3,11 +3,12 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        //COLOCA AS INFORMAÇÕES DE CADASTRO
         String dbURL = "jdbc:mysql://localhost:3306/projetojava";
         String username = "root";
-        String password = "MYindustri@l123QL";
+        String password = "SENHA";
         Connection conn = null;
-        try {
+        try {//Tenta abrir o banco
             conn = DriverManager.getConnection(dbURL, username, password);
             if (conn != null) {
                 System.out.println("BANCO DE DADOS CONECTADO COM SUCESSO!");
@@ -29,7 +30,7 @@ public class Main {
                         1-Produtor""";
                     System.out.println(txtcadastrar);
                     int ecolhacadastrar = pega.nextInt();
-                    switch (escolhamain) {
+                    switch (ecolhacadastrar) {
                         case 1:
                             System.out.println("Digite o nome do produtor:");
                             produtor.setNome(pega.nextLine());
