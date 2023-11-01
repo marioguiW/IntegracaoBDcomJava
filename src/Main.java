@@ -13,8 +13,8 @@ public class Main {
                 System.out.println("BANCO DE DADOS CONECTADO COM SUCESSO!");
             }
             Scanner pega = new Scanner(System.in);
-//        Produtor produtor;
-//        produtor = new Produtor();
+        Produtor produtor;
+        produtor = new Produtor();
             Statement statement = conn.createStatement();
             String txtmain = """
                 ---CRUD---
@@ -32,17 +32,17 @@ public class Main {
                     switch (escolhamain) {
                         case 1:
                             System.out.println("Digite o nome do produtor:");
-                            String nome = pega.nextLine();
+                            produtor.setNome(pega.nextLine());
                             System.out.println("Digite o CNPJ do produtor:");
-                            int cnpj = pega.nextInt();
+                            produtor.setCNPJ(pega.nextInt());
                             System.out.println("Digite a situacao do produtor:(1-Ativo/2-Em implementacao/3-Desistente");
-                            int situacao = pega.nextInt();
+                            produtor.setSituacao(pega.nextInt());
                             String query = " insert into produtor (cnpj, nome, situacao)"
                                     + " values (?, ?, ?)";
                             PreparedStatement preparedStmt = conn.prepareStatement(query);
-                            preparedStmt.setInt (1, cnpj);
-                            preparedStmt.setString (2, nome);
-                            preparedStmt.setInt (3, situacao);
+                            preparedStmt.setInt (1, produtor.getCNPJ());
+                            preparedStmt.setString (2, produtor.getNome());
+                            preparedStmt.setInt (3, produtor.getSituacao());
                             preparedStmt.execute();
                             conn.close();
                             break;

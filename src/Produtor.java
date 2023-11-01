@@ -3,12 +3,6 @@ public class Produtor{
     private int CNPJ;
     private int situacao;
 
-    public Produtor(String nome, int CNPJ, int situacao) {
-        this.nome = nome;
-        this.CNPJ = CNPJ;
-        this.situacao = situacao;
-    }
-
     public String getNome() {
         return nome;
     }
