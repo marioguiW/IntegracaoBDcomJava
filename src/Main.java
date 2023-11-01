@@ -6,7 +6,7 @@ public class Main {
         //COLOCA AS INFORMAÇÕES DE CADASTRO
         String dbURL = "jdbc:mysql://localhost:3306/projetojava";
         String username = "root";
-        String password = "SENHA";
+        String password = "MYindustri@l123QL";
         Connection conn = null;
         try {//Tenta abrir o banco
             conn = DriverManager.getConnection(dbURL, username, password);
@@ -20,11 +20,28 @@ public class Main {
             String txtmain = """
                 ---CRUD---
                 O que voce deseja fazer?
-                1-Cadastrar""";
+                1-Visualizar
+                2-Cadastrar""";
             System.out.println(txtmain);
             int escolhamain = pega.nextInt();
             switch (escolhamain) {
                 case 1:
+                    String txtvisualizar= """
+                            Qual voce deseja visualizar?
+                            1-Produtor""";
+                    System.out.println(txtvisualizar);
+                    int escolhaexibir = pega.nextInt();
+                    switch (escolhaexibir){
+                        case 1:
+                            ResultSet rs = statement.executeQuery("SELECT cnpj FROM produtor");
+                            while (rs.next()) {
+                                String lastName = rs.getString("cnpj");
+                                System.out.println(lastName + "\n");
+                            }
+                            break;
+                    }
+                    break;
+                case 2:
                     String txtcadastrar = """
                         O que voce deseja cadastrar?
                         1-Produtor""";
@@ -46,6 +63,9 @@ public class Main {
                             preparedStmt.setInt (3, produtor.getSituacao());
                             preparedStmt.execute();
                             conn.close();
+                            break;
+                        default:
+                            System.out.println("Erro!");
                             break;
                     }
                     break;
