@@ -16,6 +16,8 @@ public class Main {
             Scanner pega = new Scanner(System.in);
         Produtor produtor;
         produtor = new Produtor();
+        Tecnologia tecnologia;
+        tecnologia = new Tecnologia();
             Statement statement = conn.createStatement();
             String txtmain = """
                 ---CRUD---
@@ -28,7 +30,8 @@ public class Main {
                 case 1:
                     String txtvisualizar= """
                             Qual voce deseja visualizar?
-                            1-Produtor""";
+                            1-Produtor
+                            2-Tecnologia""";
                     System.out.println(txtvisualizar);
                     int escolhaexibir = pega.nextInt();
                     switch (escolhaexibir){
@@ -39,6 +42,15 @@ public class Main {
                                 System.out.println(lastName + "\n");
                             }
                             break;
+                        case 2:
+                            ResultSet rst = statement.executeQuery("SELECT tipoQueijo FROM tecnologia");
+                            while (rst.next()) {
+                                String lastName = rst.getString("tipoQueijo");
+                                System.out.println(lastName + "\n");
+                            }
+                            break;
+
+
                     }
                     break;
                 case 2:
@@ -64,6 +76,24 @@ public class Main {
                             preparedStmt.execute();
                             conn.close();
                             break;
+
+                        case 2:
+                            System.out.println("Digite o queijo que a tecnologia produzirá:");
+                            tecnologia.setNomeQueijo(pega.nextLine());
+                            System.out.println("Digite o processo utilizado:");
+                            tecnologia.setProcesso(pega.nextLine());
+                            System.out.println("Digite o tipo de preparo do queijo");
+                            tecnologia.setPreparo(pega.nextLine());
+                            String queryTecnologia = " insert into tecnologia (tipoQueijo, processoUtilizado, modoPreparo)"
+                                    + " values (?, ?, ?)";
+                            PreparedStatement preparedStmtTecnologia = conn.prepareStatement(queryTecnologia);
+                            preparedStmtTecnologia.setString (1, tecnologia.getNomeQueijo());
+                            preparedStmtTecnologia.setString (2, tecnologia.getProcesso());
+                            preparedStmtTecnologia.setString (3, tecnologia.getPreparo());
+                            preparedStmtTecnologia.execute();
+                            conn.close();
+                            break;
+
                         default:
                             System.out.println("Erro!");
                             break;
