@@ -21,7 +21,9 @@ public class Main {
                 ---CRUD---
                 O que voce deseja fazer?
                 1-Visualizar
-                2-Cadastrar""";
+                2-Cadastrar
+                3-Atualizar
+                4-Deletar""";
             System.out.println(txtmain);
             int escolhamain = pega.nextInt();
             switch (escolhamain) {
@@ -33,10 +35,10 @@ public class Main {
                     int escolhaexibir = pega.nextInt();
                     switch (escolhaexibir){
                         case 1:
-                            ResultSet rs = statement.executeQuery("SELECT cnpj FROM produtor");
+                            ResultSet rs = statement.executeQuery("SELECT nome FROM produtor");
                             while (rs.next()) {
-                                String lastName = rs.getString("cnpj");
-                                System.out.println(lastName + "\n");
+                                String Name = rs.getString("nome");
+                                System.out.println(Name + "\n");
                             }
                             break;
                     }
@@ -50,7 +52,9 @@ public class Main {
                     switch (ecolhacadastrar) {
                         case 1:
                             System.out.println("Digite o nome do produtor:");
-                            produtor.setNome(pega.nextLine());
+                            pega.nextLine();
+                            String nome = pega.nextLine();
+                            produtor.setNome(nome);
                             System.out.println("Digite o CNPJ do produtor:");
                             produtor.setCNPJ(pega.nextInt());
                             System.out.println("Digite a situacao do produtor:(1-Ativo/2-Em implementacao/3-Desistente");
@@ -68,6 +72,11 @@ public class Main {
                             System.out.println("Erro!");
                             break;
                     }
+                    break;
+                case 3:
+                    System.out.println("em breve...");
+                    break;
+                case 4:
                     break;
                 default:
                     System.out.println("Erro!");
