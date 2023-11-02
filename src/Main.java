@@ -36,17 +36,21 @@ public class Main {
                     int escolhaexibir = pega.nextInt();
                     switch (escolhaexibir){
                         case 1:
-                            ResultSet rs = statement.executeQuery("SELECT cnpj FROM produtor");
+                            ResultSet rs = statement.executeQuery("SELECT nome FROM produtor");
                             while (rs.next()) {
-                                String lastName = rs.getString("cnpj");
-                                System.out.println(lastName + "\n");
+                                ResultSet result = statement.executeQuery("SELECT id FROM produtor");
+                                String lastName = rs.getString("nome");
+                                String id = result.getString("id");
+                                System.out.println(id + " - " + lastName + "\n");
                             }
                             break;
                         case 2:
                             ResultSet rst = statement.executeQuery("SELECT tipoQueijo FROM tecnologia");
                             while (rst.next()) {
+                                ResultSet result = statement.executeQuery("SELECT id FROM tecnologia");
                                 String lastName = rst.getString("tipoQueijo");
-                                System.out.println(lastName + "\n");
+                                String id = result.getString("id");
+                                System.out.println(id + " - " + lastName + "\n");
                             }
                             break;
                     }
@@ -58,8 +62,9 @@ public class Main {
                     System.out.println(txtcadastrar);
                     int ecolhacadastrar = pega.nextInt();
                     switch (ecolhacadastrar) {
-                        case 1:
+                        case 1://Caso produtor
                             System.out.println("Digite o nome do produtor:");
+                            pega.nextLine();//limpa o buffer do teclado
                             produtor.setNome(pega.nextLine());
                             System.out.println("Digite o CNPJ do produtor:");
                             produtor.setCNPJ(pega.nextInt());
@@ -75,8 +80,9 @@ public class Main {
                             conn.close();
                             break;
 
-                        case 2:
+                        case 2://Caso tecnologia
                             System.out.println("Digite o queijo que a tecnologia produzirá:");
+                            pega.nextLine();//limpa o buffer do teclado
                             tecnologia.setNomeQueijo(pega.nextLine());
                             System.out.println("Digite o processo utilizado:");
                             tecnologia.setProcesso(pega.nextLine());
