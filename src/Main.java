@@ -77,6 +77,7 @@ public class Main {
                     System.out.println("em breve...");
                     break;
                 case 4:
+                    System.out.println("em breve...");
                     break;
                 default:
                     System.out.println("Erro!");
