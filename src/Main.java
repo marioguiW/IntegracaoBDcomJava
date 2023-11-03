@@ -41,6 +41,7 @@ public class Main {
                     int escolhaexibir = pega.nextInt();
                     switch (escolhaexibir) {
                         case 1://Exibe produtores
+                            System.out.println("--Lista de Produtores--");
                             ResultSet rs = statement.executeQuery("SELECT * FROM produtor");
                             while (rs.next()) {
                                 String lastName = rs.getString("nome");
@@ -49,6 +50,7 @@ public class Main {
                             }
                             break;
                         case 2://Exibe tecnologia
+                            System.out.println("--Lista de Tecnologias--");
                             ResultSet rst = statement.executeQuery("SELECT * FROM tecnologia");
                             while (rst.next()) {
                                 String lastName = rst.getString("tipoQueijo");
@@ -75,7 +77,7 @@ public class Main {
                             System.out.println("Digite a situacao do produtor:(1-Ativo/2-Em implementacao/3-Desistente");
                             produtor.setSituacao(pega.nextInt());
                             String query = " insert into produtor (cnpj, nome, situacao)"
-                                    + " values (?, ?, ?)";
+                                         + " values (?, ?, ?)";
                             PreparedStatement preparedStmt = conn.prepareStatement(query);
                             preparedStmt.setInt(1, produtor.getCNPJ());
                             preparedStmt.setString(2, produtor.getNome());
@@ -93,7 +95,7 @@ public class Main {
                             System.out.println("Digite o tipo de preparo do queijo");
                             tecnologia.setPreparo(pega.nextLine());
                             String queryTecnologia = " insert into tecnologia (tipoQueijo, processoUtilizado, modoPreparo)"
-                                    + " values (?, ?, ?)";
+                                                   + " values (?, ?, ?)";
                             PreparedStatement preparedStmtTecnologia = conn.prepareStatement(queryTecnologia);
                             preparedStmtTecnologia.setString(1, tecnologia.getNomeQueijo());
                             preparedStmtTecnologia.setString(2, tecnologia.getProcesso());
@@ -108,6 +110,7 @@ public class Main {
                     }
                     break;
                 case 3://Atualizar
+
                     break;
                 case 4://Excluir
                     String txtexcluir = """
@@ -116,11 +119,11 @@ public class Main {
                     System.out.println(txtexcluir);
                     int escolhaexcluir = pega.nextInt();
                     switch (escolhaexcluir) {
-                        case 1:
+                        case 1://Escolha produtor
                             System.out.println("Insira o ID do produtor que deseja excluir:");
                             int idexcluir = pega.nextInt();
                             String query = " DELETE FROM produtor"
-                                    + " WHERE id = (?);";
+                                         + " WHERE id = (?);";
                             PreparedStatement preparedStmt = conn.prepareStatement(query);
                             preparedStmt.setInt(1,idexcluir);
                             preparedStmt.execute();
