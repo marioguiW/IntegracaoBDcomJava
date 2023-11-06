@@ -6,7 +6,7 @@ public class Main {
         //COLOCA AS INFORMAÇÕES DE CADASTRO
         String dbURL = "jdbc:mysql://localhost:3306/projetojava";
         String username = "root";
-        String password = "MYindustri@l123QL";
+        String password = "SENHA";
         Connection conn = null;
         try {//Tenta abrir o banco
             conn = DriverManager.getConnection(dbURL, username, password);
@@ -41,12 +41,14 @@ public class Main {
                     int escolhaexibir = pega.nextInt();
                     switch (escolhaexibir) {
                         case 1://Exibe produtores
-                            System.out.println("--Lista de Produtores--");
+                            System.out.println("--Lista de Produtores-- \nID - NOME - CNPJ - SITUACAO");
                             ResultSet rs = statement.executeQuery("SELECT * FROM produtor");
                             while (rs.next()) {
                                 String lastName = rs.getString("nome");
-                                String id = rs.getString("id");
-                                System.out.println(id + " - " + lastName + "\n");
+                                int id = rs.getInt("id");
+                                int cnpj = rs.getInt("cnpj");
+                                int situacao = rs.getInt("situacao");
+                                System.out.println(id + " - " + lastName +" "+ cnpj +" "+ situacao + "\n");
                             }
                             break;
                         case 2://Exibe tecnologia
@@ -74,7 +76,7 @@ public class Main {
                             produtor.setNome(pega.nextLine());
                             System.out.println("Digite o CNPJ do produtor:");
                             produtor.setCNPJ(pega.nextInt());
-                            System.out.println("Digite a situacao do produtor:(1-Ativo/2-Em implementacao/3-Desistente");
+                            System.out.println("Digite a situacao do produtor:(1-Ativo/2-Em implementacao/3-Desistente)");
                             produtor.setSituacao(pega.nextInt());
                             String query = " insert into produtor (cnpj, nome, situacao)"
                                          + " values (?, ?, ?)";
@@ -110,7 +112,54 @@ public class Main {
                     }
                     break;
                 case 3://Atualizar
-
+                    String txteditar = """
+                            De onde voce deseja editar?
+                            1-Produtor""";
+                    System.out.println(txteditar);
+                    int escolhaeditar = pega.nextInt();
+                    switch (escolhaeditar){
+                        case 1://Produtor
+                            System.out.println("Insira o ID do produtor que dejesa editar:");
+                            int id = pega.nextInt();
+                            System.out.println("Deseja editar o nome? (1-Sim/0-Nao)");
+                            int edicao = pega.nextInt();
+                            if(edicao==1){//Caso editar nome
+                                System.out.println("Digite o novo nome:");
+                                pega.nextLine();
+                                String nvnome = pega.nextLine();
+                                String query = "UPDATE produtor SET nome = (?) WHERE id = (?);";
+                                PreparedStatement preparedStmt = conn.prepareStatement(query);
+                                preparedStmt.setString(1,nvnome);
+                                preparedStmt.setInt(2,id);
+                                preparedStmt.execute();
+                            }
+                            System.out.println("Deseja editar o CNPJ? (1-Sim/0-Nao)");
+                            edicao = pega.nextInt();
+                            if (edicao==1){//Caso editar CNPJ
+                                System.out.println("Digite o novo CNPJ:");
+                                int nvcnpj = pega.nextInt();
+                                String query = "UPDATE produtor SET cnpj = (?) WHERE id = (?);";
+                                PreparedStatement preparedStmt = conn.prepareStatement(query);
+                                preparedStmt.setInt(1,nvcnpj);
+                                preparedStmt.setInt(2,id);
+                                preparedStmt.execute();
+                            }
+                            System.out.println("Deseja editar a situacao? (1-Sim/0-Nao)");
+                            edicao = pega.nextInt();
+                            if (edicao==1){//Caso editar situacao
+                                System.out.println("Digite a nova situacao: (1-Ativo/2-Em implementacao/3-Desistente)");
+                                int nvsituacao = pega.nextInt();
+                                String query = "UPDATE produtor SET nome = (?) WHERE id = (?);";
+                                PreparedStatement preparedStmt = conn.prepareStatement(query);
+                                preparedStmt.setInt(1,nvsituacao);
+                                preparedStmt.setInt(2,id);
+                                preparedStmt.execute();
+                            }
+                            break;
+                        default:
+                            System.out.println("ERRO!");
+                            break;
+                    }
                     break;
                 case 4://Excluir
                     String txtexcluir = """
