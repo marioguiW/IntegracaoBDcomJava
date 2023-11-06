@@ -60,6 +60,9 @@ public class Main {
                                 System.out.println(id + " - " + lastName + "\n");
                             }
                             break;
+                        default:
+                            System.out.println("ERRO!");
+                            break;
                     }
                     break;
                 case 2://Adiciona
@@ -177,6 +180,9 @@ public class Main {
                             preparedStmt.setInt(1,idexcluir);
                             preparedStmt.execute();
                             System.out.println("Excluido com sucesso!");
+                            break;
+                        default:
+                            System.out.println("ERRO!");
                             break;
                     }
                     break;
