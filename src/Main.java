@@ -117,7 +117,8 @@ public class Main {
                 case 3://Atualizar
                     String txteditar = """
                             De onde voce deseja editar?
-                            1-Produtor""";
+                            1-Produtor
+                            2-Tecnologia""";
                     System.out.println(txteditar);
                     int escolhaeditar = pega.nextInt();
                     switch (escolhaeditar){
@@ -159,6 +160,44 @@ public class Main {
                                 preparedStmt.execute();
                             }
                             break;
+                        case 2://Tecnologia
+                            System.out.println("Insira o ID do queijo que dejesa editar:");
+                            int idqueijo = pega.nextInt();
+                            System.out.println("Deseja editar o nome? (1-Sim/0-Nao)");
+                            int edicaoqueijo = pega.nextInt();
+                            if(edicaoqueijo==1){//Caso editar nome
+                                System.out.println("Digite o novo nome:");
+                                pega.nextLine();
+                                String nvnomequeijo = pega.nextLine();
+                                String queryqueijo = "UPDATE tecnologia SET nomeQueijo = (?) WHERE id = (?);";
+                                PreparedStatement preparedStmt = conn.prepareStatement(queryqueijo);
+                                preparedStmt.setString(1,nvnomequeijo);
+                                preparedStmt.setInt(2,idqueijo);
+                                preparedStmt.execute();
+                            }
+                            System.out.println("Deseja editar o processo? (1-Sim/0-Nao)");
+                            edicaoqueijo = pega.nextInt();
+                            if (edicaoqueijo==1){//Caso editar CNPJ
+                                System.out.println("Digite o novo processo:");
+                                String nvProcesso = pega.nextLine();
+                                String query = "UPDATE tecnologia SET processo = (?) WHERE id = (?);";
+                                PreparedStatement preparedStmt = conn.prepareStatement(query);
+                                preparedStmt.setString(1,nvProcesso);
+                                preparedStmt.setInt(2,idqueijo);
+                                preparedStmt.execute();
+                            }
+                            System.out.println("Deseja editar o preparo? (1-Sim/0-Nao)");
+                            edicaoqueijo = pega.nextInt();
+                            if (edicaoqueijo==1){//Caso editar situacao
+                                System.out.println("Digite o novo preparo: ");
+                                int nvpreparo = pega.nextInt();
+                                String query = "UPDATE tecnologia SET preparo = (?) WHERE id = (?);";
+                                PreparedStatement preparedStmt = conn.prepareStatement(query);
+                                preparedStmt.setInt(1,nvpreparo);
+                                preparedStmt.setInt(2,idqueijo);
+                                preparedStmt.execute();
+                            }
+                            break;
                         default:
                             System.out.println("ERRO!");
                             break;
@@ -167,7 +206,8 @@ public class Main {
                 case 4://Excluir
                     String txtexcluir = """
                             De onde voce deseja excluir?
-                            1-Produtor""";
+                            1-Produtor
+                            2-Tecnologia""";
                     System.out.println(txtexcluir);
                     int escolhaexcluir = pega.nextInt();
                     switch (escolhaexcluir) {
@@ -179,6 +219,16 @@ public class Main {
                             PreparedStatement preparedStmt = conn.prepareStatement(query);
                             preparedStmt.setInt(1,idexcluir);
                             preparedStmt.execute();
+                            System.out.println("Excluido com sucesso!");
+                            break;
+                        case 2: // Escolha Tecnologia
+                            System.out.println("Insira o ID do queijo que deseja excluir:");
+                            int idexcluirqueijo = pega.nextInt();
+                            String queryqueijo = " DELETE FROM produtor"
+                                    + " WHERE id = (?);";
+                            PreparedStatement preparedStmtq = conn.prepareStatement(queryqueijo);
+                            preparedStmtq.setInt(1,idexcluirqueijo);
+                            preparedStmtq.execute();
                             System.out.println("Excluido com sucesso!");
                             break;
                         default:
