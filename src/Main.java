@@ -18,6 +18,9 @@ public class Main {
         produtor = new Produtor();
         Tecnologia tecnologia;
         tecnologia = new Tecnologia();
+        Localidade localidade;
+        Localidade Localidade = new Localidade();
+
         int escolhamain;
         do {
             Statement statement = conn.createStatement();
@@ -60,6 +63,16 @@ public class Main {
                                 System.out.println(id + " - " + lastName + "\n");
                             }
                             break;
+
+                        case 3://Exibe localidades
+                            System.out.println("--Lista de Localidades--");
+                            ResultSet rsl = statement.executeQuery("SELECT * FROM localidade");
+                            while (rsl.next()) {
+                                String lastName = rsl.getString("endereco");
+                                String id = rsl.getString("id");
+                                System.out.println(id + " - " + lastName + "\n");
+                            }
+                            break;
                         default:
                             System.out.println("ERRO!");
                             break;
@@ -69,7 +82,8 @@ public class Main {
                     String txtcadastrar = """
                             O que voce deseja cadastrar?
                             1-Produtor
-                            2-Tecnologia""";
+                            2-Tecnologia
+                            3-Localidade""";
                     System.out.println(txtcadastrar);
                     int ecolhacadastrar = pega.nextInt();
                     switch (ecolhacadastrar) {
@@ -106,6 +120,33 @@ public class Main {
                             preparedStmtTecnologia.setString(2, tecnologia.getProcesso());
                             preparedStmtTecnologia.setString(3, tecnologia.getPreparo());
                             preparedStmtTecnologia.execute();
+                            System.out.println("Adicionado com sucesso!");
+                            break;
+
+                        case 3://Caso localidade
+                            System.out.println("Digite o estado que deseja cadastrar:");
+                            pega.nextLine();
+                            localidade.setEstado(pega.nextLine());
+                            System.out.println("Digite a cidade:");
+                            localidade.setCidade(pega.nextLine());
+                            System.out.println("Digite o nome da estrada:");
+                            localidade.setNomeEstrada(pega.nextLine());
+                            System.out.println("Digite o numero da propriedade:");
+                            localidade.setNumero(pega.nextInt());
+                            System.out.println("Digite a longitude:");
+                            localidade.setLongitude(pega.nextInt());
+                            System.out.println("Digite a latitude:");
+                            localidade.setLatitude(pega.nextInt());
+                            String queryLocalidade = " insert into localidade (estado, cidade, nomeEstrada, numero, longitude, latitude)"
+                                    + " values (?, ?, ?, ?, ?, ?)";
+                            PreparedStatement preparedStmtLocalidade = conn.prepareStatement(queryLocalidade);
+                            preparedStmtLocalidade.setString(1, localidade.getEstado());
+                            preparedStmtLocalidade.setString(2, localidade.getCidade());
+                            preparedStmtLocalidade.setString(3, localidade.getNomeEstrada());
+                            preparedStmtLocalidade.setInt(4, localidade.getNumero());
+                            preparedStmtLocalidade.setInt(5, localidade.getLongitude());
+                            preparedStmtLocalidade.setInt(6, localidade.getLatitude());
+                            preparedStmtLocalidade.execute();
                             System.out.println("Adicionado com sucesso!");
                             break;
 
